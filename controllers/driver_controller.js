@@ -5,8 +5,12 @@ const greeting = (req, res) => {
 };
 
 const create = async (req, res) => {
-  const driver = new Driver(req.body);
-  await driver.save();
-  res.send(driver);
+  try {
+    const driver = new Driver(req.body);
+    await driver.save();
+    res.send(driver);
+  } catch (error) {
+    res.status(400).send(error);
+  }
 };
 module.exports = { greeting, create };
