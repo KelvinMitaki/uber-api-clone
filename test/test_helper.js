@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 before(done => {
   mongoose.connect("mongodb://127.0.0.1/uber_test", {
     useUnifiedTopology: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useFindAndModify: false
   });
   mongoose.connection
     .once("open", () => done())

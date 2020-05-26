@@ -12,4 +12,13 @@ describe("Drivers Controller", () => {
     const newCount = await Driver.countDocuments();
     assert(count + 1 === newCount);
   });
+  it("PUTS to api/drivers/id to edit an existing user", async () => {
+    const driver = new Driver({ email: "t@t.com", driving: false });
+    await driver.save();
+    await request(app)
+      .put(`/api/drivers/${driver._id}`)
+      .send({ driving: true });
+    const editedDriver = await Driver.findById(driver._id);
+    assert(editedDriver.driving === true);
+  });
 });
