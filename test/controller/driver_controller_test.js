@@ -21,4 +21,11 @@ describe("Drivers Controller", () => {
     const editedDriver = await Driver.findById(driver._id);
     assert(editedDriver.driving === true);
   });
+  it("DELETE to api/drivers/id to delete an existing user", async () => {
+    const driver = new Driver({ email: "g@gmail.com" });
+    await driver.save();
+    await request(app).delete(`/api/drivers/${driver._id}`);
+    const delDriver = await Driver.findById(driver._id);
+    assert(delDriver === null);
+  });
 });
