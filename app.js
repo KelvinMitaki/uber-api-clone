@@ -9,7 +9,8 @@ if (!process.env.NODE_ENV) {
   // connect to mongo db
   mongoose.connect("mongodb://127.0.0.1/uber", {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: true
   });
 }
 

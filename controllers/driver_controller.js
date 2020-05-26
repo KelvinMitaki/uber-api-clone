@@ -13,4 +13,18 @@ const create = async (req, res) => {
     res.status(400).send(error);
   }
 };
-module.exports = { greeting, create };
+
+const edit = async (req, res) => {
+  try {
+    const driver = await Driver.findOneAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true }
+    );
+    console.log(driver);
+    res.send(driver);
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
+module.exports = { greeting, create, edit };
