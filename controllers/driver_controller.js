@@ -21,10 +21,18 @@ const edit = async (req, res) => {
       req.body,
       { new: true }
     );
-    console.log(driver);
     res.send(driver);
   } catch (error) {
     res.status(404).send(error);
   }
 };
-module.exports = { greeting, create, edit };
+
+const deleteDriver = async (req, res) => {
+  try {
+    const driver = await Driver.findOneAndDelete({ _id: req.params.id });
+    res.send(driver);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+module.exports = { greeting, create, edit, deleteDriver };
