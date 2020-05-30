@@ -28,4 +28,23 @@ describe("Drivers Controller", () => {
     const delDriver = await Driver.findById(driver._id);
     assert(delDriver === null);
   });
+  it("GET drivers within a given radius", async () => {
+    try {
+      const seattleDriver = new Driver({
+        email: "seattle@test.com",
+        geometry: { type: "Point", coordinates: [-122, 47] }
+      });
+
+      const miamiDriver = new Driver({
+        email: "miami@gmail.com",
+        geometry: { type: "Point", coordinates: [-80.2, 25.7] }
+      });
+
+      Promise.all([await seattleDriver.save(), await miamiDriver.save()]);
+      const drivers = await request(app).get(`/api/drivers?lng=-80&lat=25`);
+      console.log(drivers);
+    } catch (error) {
+      console.log(error);
+    }
+  });
 });
